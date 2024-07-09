@@ -1,0 +1,1 @@
+print("buy low sell high")
