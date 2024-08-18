@@ -12,6 +12,11 @@ def load_api_key(key_name):
     return api_key
 
 
+## Setting up client with authentication
 client = EnhancedRESTClient(api_key=load_api_key('COINBASE_API_KEY'), api_secret=load_api_key("COINBASE_API_SECRET")) 
-accounts = client.get_accounts()
+
+## API call to get candle information using UNIX timestamps
+accounts = client.get_public_candles(product_id="BTC-USD", start="1721750400", end="1722355200", granularity="ONE_DAY")
+
+## Printing out information retrieved from API call
 print(dumps(accounts, indent=2))
