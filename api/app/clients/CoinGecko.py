@@ -3,6 +3,7 @@ import pandas as pd
 import datetime as datetime 
 from dotenv import load_dotenv
 import os
+from utils.api_utils import http_get_request
 
 def fetch_btc_ohlc(days=1, fiat="usd"):
     url = r"https://api.coingecko.com/api/v3/coins/bitcoin/ohlc"
@@ -19,11 +20,8 @@ def fetch_btc_ohlc(days=1, fiat="usd"):
         "days": days
     }
 
-    response = requests.get(url, params=params, headers=headers)
-    if response.status_code != 200:
-        raise Exception(f"fetch_btc_ohlc() failed, {response.status_code}: {response.text}")
+    ohlc_data = http_get_request(url=url, headers=headers, params=params)
     
-    ohlc_data = response.json()
     df = pd.DataFrame(ohlc_data, columns=["timestamp_ms", "open", "high", "low", "close"])
     df["timestamp"] = pd.to_datetime(df["timestamp_ms"], unit="ms")
     df.drop(columns=["timestamp_ms"], inplace=True)
