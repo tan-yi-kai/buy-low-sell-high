@@ -1,4 +1,3 @@
-import requests
 import pandas as pd
 from utils.api_utils import http_get_request
 

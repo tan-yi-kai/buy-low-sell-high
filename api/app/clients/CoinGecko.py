@@ -1,4 +1,3 @@
-import requests
 import pandas as pd
 import datetime as datetime 
 from dotenv import load_dotenv
@@ -20,9 +19,9 @@ def fetch_btc_ohlc(days=1, fiat="usd"):
         "days": days
     }
 
-    ohlc_data = http_get_request(url=url, headers=headers, params=params)
-    
-    df = pd.DataFrame(ohlc_data, columns=["timestamp_ms", "open", "high", "low", "close"])
+    data = http_get_request(url=url, headers=headers, params=params)
+
+    df = pd.DataFrame(data, columns=["timestamp_ms", "open", "high", "low", "close"])
     df["timestamp"] = pd.to_datetime(df["timestamp_ms"], unit="ms")
     df.drop(columns=["timestamp_ms"], inplace=True)
 
