@@ -14,13 +14,7 @@ FRED_SERIES_ID_DICT = {
 }
 
 
-def fetch_FRED_series(series_id: str, years: int=3):
-    pass
-
-
-
-def fetch_country_m2(years: int=3, country_id: str="US"):
-    url = "https://api.stlouisfed.org/fred/series/observations"
+def generate_params(country_id: str, years: int, file_type: str = "json", frequency: str = "m") -> dict[str: str]:
     
     load_dotenv()
     api_key = os.getenv("FRED_API_KEY")
@@ -37,7 +31,15 @@ def fetch_country_m2(years: int=3, country_id: str="US"):
         "observation_end": end_date.strftime("%Y-%m-%d")
     }
 
-    data = http_get_request(url=url, params=params)
+    return params
+
+
+def fetch_country_m2(years: int=3, country_id: str="US"):
+    url = "https://api.stlouisfed.org/fred/series/observations"
+
+    params = generate_params(country_id, years)
+    
+    data = http_get_request(url, params)
     df = pd.DataFrame(data["observations"], columns=["date", "value"])
     df["date"] = pd.to_datetime(df["date"])
 
