@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from utils.api_utils import http_get_request
 
+
 def fetch_btc_ohlc(days=1, fiat="usd"):
     url = r"https://api.coingecko.com/api/v3/coins/bitcoin/ohlc"
     

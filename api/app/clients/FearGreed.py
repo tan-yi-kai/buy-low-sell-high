@@ -1,6 +1,7 @@
 import pandas as pd
 from utils.api_utils import http_get_request
 
+
 def fetch_fear_greed():
     url = "https://api.alternative.me/fng/?limit=1&format=json"
     
