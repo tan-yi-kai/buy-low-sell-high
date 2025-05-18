@@ -3,6 +3,6 @@ import api.app.clients.FearGreed as FearGreed
 
 router = APIRouter()
 
-@router.get("/fear_greed")
-async def get_fear_greed():
+@router.get("/get_now")
+async def get_now():
     return FearGreed.fetch_fear_greed()
